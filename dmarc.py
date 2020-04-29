@@ -7,7 +7,7 @@ import gzip
 import jinja2
 import mimetypes as filetype
 import os
-import progressbar
+#import progressbar
 import socket
 import sqlite3
 import sys
@@ -85,7 +85,7 @@ class dmarc():
         self.__template_filename = 'template.j2'
         self.__rendered_filename = 'report.html'
 
-        self.__bar = progressbar.ProgressBar(max_value=progressbar.UnknownLength, redirect_stdout=True)
+#        self.__bar = progressbar.ProgressBar(max_value=progressbar.UnknownLength, redirect_stdout=True)
         self.__counter = 0
 
         self.__domain_mx = []
@@ -179,7 +179,7 @@ class dmarc():
                 self.__cursor.execute(sql)
                 self.__conn.commit()
 
-            self.__bar.update(self.__counter)
+            #self.__bar.update(self.__counter)
         
     def render(self):
         current_path = os.path.dirname(os.path.abspath(__file__))

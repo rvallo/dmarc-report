@@ -11,8 +11,11 @@ type = IMAP
 remotehost = imap.change-me.tld
 remoteuser = changeme
 remotepass = changme-password
-ssl = yes
-sslcacertfile = /etc/ssl/certs/ca-bundle.crt
+ssl = no
+remoteport= 143
+starttls = yes
+ssl_version = tls1_2
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 
 [Repository Local]
 type = Maildir
