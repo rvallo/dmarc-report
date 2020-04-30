@@ -7,7 +7,6 @@ import gzip
 import jinja2
 import mimetypes as filetype
 import os
-#import progressbar
 import socket
 import sqlite3
 import sys
@@ -69,6 +68,7 @@ INSERT_RDNS = '''
 INSERT INTO rdns(ip, rdns) VALUES(?, ?)
 '''
 
+MIME_GZIP_FILE = ['application/xml', 'gzip']
 MIME_GZIP = ['application/gzip', 'application/x-gzip']
 MIME_ZIP = ['application/zip', 'application/x-zip-compressed']
 MIME_TRASH = ['application/octet-stream', 'text/xml']
@@ -85,7 +85,6 @@ class dmarc():
         self.__template_filename = 'template.j2'
         self.__rendered_filename = 'report.html'
 
-#        self.__bar = progressbar.ProgressBar(max_value=progressbar.UnknownLength, redirect_stdout=True)
         self.__counter = 0
 
         self.__domain_mx = []
@@ -179,7 +178,6 @@ class dmarc():
                 self.__cursor.execute(sql)
                 self.__conn.commit()
 
-            #self.__bar.update(self.__counter)
         
     def render(self):
         current_path = os.path.dirname(os.path.abspath(__file__))
@@ -209,6 +207,8 @@ class dmarc():
                 print('ERROR: ', f)
                 continue
             if mime in MIME_GZIP:
+                fp = gzip.open(f, 'rb')
+            elif mime in MIME_GZIP_FILE:
                 fp = gzip.open(f, 'rb')
             elif mime in MIME_ZIP:
                 with zipfile.ZipFile(f, 'r') as myzip:
