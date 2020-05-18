@@ -146,15 +146,15 @@ class dmarc():
             return rdns
 
     def __send_hook(self, text):
-        if 'HOOKURL' in os.environ:
-            chatURL = os.environ['HOOKURL']
+        if 'HOOK_URL' in os.environ:
+            chatURL = os.environ['HOOK_URL']
             data = {"username":"DMARC-bot","text":"FAIL IP","attachments":text} 
             params = json.dumps(data).encode('utf8')
             req = urllib.request.Request(chatURL, data=params,
                                          headers={'content-type': 'application/json', 'X-HTTP-Method-Override': 'POST'})
             response = urllib.request.urlopen(req)
         else:
-            print('Hook URL not defined in ENV!')
+            print('HOOK_URL not defined in ENV!')
 
     def __insert(self):
         inserted = 0
@@ -190,7 +190,9 @@ class dmarc():
                 self.__counter += 1
                 if self.__data['dkim'] != 'pass' or self.__data['spf'] != 'pass':
                     print('INFO: not pass')
-                    self.__send_hook([{"title":"DMARC-FAIL","text":"IP:" + self.__data['s_ip'] + "-" + self.__data['ip_reverse'] + ", SPF: " + self.__data['spf'] + ", DKIM: " + self.__data['dkim'] + ", DOMAIN:" + self.__data['domain'] + ", FROM:" + self.__data['org_name'],"color":"#764FA5"}])
+                    self.__send_hook([{"title":"DMARC-FAIL","text":"IP:" + self.__data['s_ip'] + "-" + self.__data['ip_reverse'] + 
+                        ", SPF: " + self.__data['spf'] + ", DKIM: " + self.__data['dkim'] + ", DOMAIN:" + self.__data['domain'] +
+                         ", FROM:" + self.__data['org_name'],"color":"#764FA5"}])
                 sql = INSERT_RECORD %  self.__data
                 self.__cursor.execute(sql)
                 self.__conn.commit()

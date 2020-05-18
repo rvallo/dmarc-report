@@ -12,6 +12,29 @@ Simple scripts providing an easy way to get a human readable reporting for DMARC
 - (python3) zipfile
 - (python3) xml
 
+
+## Docker
+### ENV
+ - HOOK_URL
+ - MY_IPS
+
+### Docker Compose example
+```
+version: '3'
+
+services:
+  dmarc-report:
+    image: rvallo/dmarc-report:latest
+    container_name: dmarc-report
+    environment:
+      - HOOK_URL="https://rocket.chat.example/hooks/token"
+      - MY_IPS="1.1.1.1 2.2.2.2"
+    volumes:
+      - /tmp/offlineimaprc:/dmarc-report/offlineimaprc
+      - /tmp/db:/dmarc-report/db
+
+```
+
 ## Content
 ### extract.py
 Extracts attachments (zip, gzip) and save them in "reports" directory.

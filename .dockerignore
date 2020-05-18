@@ -1,0 +1,12 @@
+.git
+.dockerignore
+.gitignore
+.*.swp
+mails
+dmarc.sqlite
+__pycache__
+reports
+report.html
+offlineimap.log
+offlineimaprc
+my_ips

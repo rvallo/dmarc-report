@@ -8,6 +8,6 @@ RUN apt install -y vim
 
 COPY ./ /dmarc-report
 
+WORKDIR "/dmarc-report"
 ENTRYPOINT ["/bin/bash"]
-
-
+CMD ["/dmarc-report/script.sh"]
