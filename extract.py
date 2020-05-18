@@ -27,6 +27,7 @@ if not os.path.isdir('./reports'):
 for root, dirs, files in os.walk('./mails/INBOX/'):
     for f in files:
         mail_file = os.path.join(root, f)
+        print('INFO: opening file: ' + mail_file)
         mtime = os.path.getmtime(mail_file)
         msg = email.message_from_file(open(mail_file))
         if msg.is_multipart():

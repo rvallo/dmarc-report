@@ -1,7 +1,10 @@
 #!/bin/bash
 
 echo "Fetching mails"
-offlineimap -l offlineimap.log -c offlineimaprc
+
+[ -z "$IMAPCONF" ] && IMAPCONF="offlineimaprc"
+
+offlineimap -l offlineimap.log -c $IMAPCONF
 
 echo "Extracting attachments"
 test -r my_ips && source my_ips

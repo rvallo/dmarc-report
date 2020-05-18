@@ -78,7 +78,7 @@ MIME_TRASH = ['application/octet-stream', 'text/xml']
 
 class dmarc():
     def __init__(self):
-        self.__db = './dmarc.sqlite'
+        self.__db = './db/dmarc.sqlite'
         self.__prepare()
         self.__conn = sqlite3.connect(self.__db)
         self.__cursor = self.__conn.cursor()
@@ -189,7 +189,7 @@ class dmarc():
             if not self.__check():
                 self.__counter += 1
                 if self.__data['dkim'] != 'pass' or self.__data['spf'] != 'pass':
-                    print('INFO: not pass')
+                    print('INFO: dmarc fail')
                     self.__send_hook([{"title":"DMARC-FAIL","text":"IP:" + self.__data['s_ip'] + "-" + self.__data['ip_reverse'] + 
                         ", SPF: " + self.__data['spf'] + ", DKIM: " + self.__data['dkim'] + ", DOMAIN:" + self.__data['domain'] +
                          ", FROM:" + self.__data['org_name'],"color":"#764FA5"}])
@@ -213,7 +213,7 @@ class dmarc():
             'my_ip': self.__my_ips
         }
         output_text = render_environment.get_template(self.__template_filename).render(render_vars)
-        with open(rendered_file_path, "w") as result_file:
+        with open(rendered_file_path, "w", encoding='utf8') as result_file:
             result_file.write(output_text)
 
     def parse(self):
