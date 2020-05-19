@@ -25,7 +25,7 @@ version: '3'
 
 services:
   dmarc-report:
-    image: rvallo/dmarc-report:latest
+    image: rvallo/dmarc-report:stable
     container_name: dmarc-report
     environment:
       - HOOK_URL="https://rocket.chat.example/hooks/token"
