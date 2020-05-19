@@ -5,8 +5,6 @@ RUN apt update && apt install --no-install-recommends -y git offlineimap python3
 
 RUN adduser --system --shell /bin/bash --group --gecos "dmarc-report" --disabled-password dmarc
 
-RUN apt install -y vim
-
 COPY --chown=dmarc:dmarc ./ /dmarc-report
 USER dmarc
 
