@@ -29,7 +29,7 @@ for root, dirs, files in os.walk('./mails/INBOX/'):
         mail_file = os.path.join(root, f)
         print('INFO: opening file: ' + mail_file)
         mtime = os.path.getmtime(mail_file)
-        msg = email.message_from_file(open(mail_file))
+        msg = email.message_from_file(open(mail_file, "r" , encoding='utf8'))
         if msg.is_multipart():
             for attach in msg.get_payload():
                 if attach.get_content_type() in ACCEPTED_MIME:
