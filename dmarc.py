@@ -188,8 +188,8 @@ class dmarc():
 
             if not self.__check():
                 self.__counter += 1
-                if self.__data['dkim'] != 'pass':
-                    print('INFO: dmarc fail')
+                if (self.__data['dkim'] != 'pass') & (self.__data['s_ip'] in self.__my_ips):
+                    print('INFO: dmarc fail IP:', self.__data['s_ip'])
                     self.__send_hook([{"title":"DMARC-FAIL","text":"IP:" + self.__data['s_ip'] + "-" + self.__data['ip_reverse'] + 
                         ", SPF: " + self.__data['spf'] + ", DKIM: " + self.__data['dkim'] + ", DOMAIN:" + self.__data['domain'] +
                          ", FROM:" + self.__data['org_name'],"color":"#764FA5"}])
